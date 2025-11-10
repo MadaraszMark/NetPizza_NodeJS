@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="hu">
+
+<head>
+    <meta charset="utf-8">
+    <title>Admin felület</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <h1>Admin felület</h1>
+    <p>Szia, <strong>
+            <%= user?.username %>
+        </strong>! Itt jön majd a CRUD.</p>
+    <form method="post" action="/logout">
+        <button type="submit">Kijelentkezés</button>
+    </form>
+</body>
+
+</html>

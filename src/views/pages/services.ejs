@@ -28,28 +28,7 @@
   <link rel="stylesheet" href="/css/style.css">
 </head>
 
-<body>
-  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-    <div class="container">
-      <a class="navbar-brand" href="/"><span class="flaticon-pizza-1 mr-1"></span>NetPizza<br><small>Isteni
-          Finom</small></a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
-        aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="oi oi-menu"></span> Menü
-      </button>
-      <div class="collapse navbar-collapse" id="ftco-nav">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item"><a href="/" class="nav-link">Kezdőlap</a></li>
-          <li class="nav-item"><a href="/menu" class="nav-link">Menü</a></li>
-          <li class="nav-item active"><a href="/services" class="nav-link">Szolgáltatások</a></li>
-          <li class="nav-item"><a href="/about" class="nav-link">Rólunk</a></li>
-          <li class="nav-item"><a href="/contact" class="nav-link">Kapcsolat</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <!-- END nav -->
-
+<%- include('../partials/navbar') %>
 
   <section class="home-slider owl-carousel img" style="background-image: url(images/bg_1.jpg);">
 
@@ -288,11 +267,8 @@
   <script src="/js/bootstrap-datepicker.js"></script>
   <script src="/js/jquery.timepicker.min.js"></script>
   <script src="/js/scrollax.min.js"></script>
-  <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-  <script src="/js/google-map.js"></script>
   <script src="/js/main.js"></script>
 
-</body>
+  </body>
 
 </html>

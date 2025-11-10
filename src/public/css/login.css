@@ -1,0 +1,60 @@
+/* Login oldal saját stílusa */
+.login-box {
+    background: rgba(0, 0, 0, 0.75);
+    /* sötét áttetsző háttér */
+    color: #fff;
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(6px);
+    /* modern áttetsző hatás */
+}
+
+.login-box h3 {
+    color: #fff;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.login-box .form-control {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: none;
+    border-bottom: 2px solid #f96d00;
+    border-radius: 0;
+    transition: border-color 0.3s;
+}
+
+.login-box .form-control:focus {
+    border-color: #ff7f24;
+    box-shadow: none;
+}
+
+.login-box .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.login-box .btn-primary {
+    background: #f96d00;
+    border: none;
+    transition: 0.3s;
+}
+
+.login-box .btn-primary:hover {
+    background: #ff7f24;
+}
+
+.login-box a {
+    color: #f96d00;
+    transition: 0.2s;
+}
+
+.login-box a:hover {
+    color: #ffae52;
+    text-decoration: underline;
+}
+
+body {
+    background-color: #000;
+    /* ha nincs slider kép */
+}

@@ -1,0 +1,49 @@
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="/"><span class="flaticon-pizza-1 mr-1"></span>NetPizza<br><small>Isteni
+                    Finom</small></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> Menü
+            </button>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a href="/" class="nav-link">Kezdőlap</a></li>
+                    <li class="nav-item"><a href="/menu" class="nav-link">Menü</a></li>
+                    <li class="nav-item"><a href="/services" class="nav-link">Szolgáltatások</a></li>
+                    <li class="nav-item"><a href="/about" class="nav-link">Rólunk</a></li>
+                    <li class="nav-item"><a href="/contact" class="nav-link">Kapcsolat</a></li>
+
+                    <% if (user && (user.role==='user' || user.role==='admin' )) { %>
+                        <li class="nav-item"><a href="/uzenetek" class="nav-link">Üzenetek</a></li>
+                        <% } %>
+
+                            <% if (user && user.role==='admin' ) { %>
+                                <li class="nav-item"><a href="/admin" class="nav-link">Admin</a></li>
+                                <% } %>
+
+                                    <% if (!user) { %>
+                                        <li class="nav-item"><a href="/login" class="nav-link">Bejelentkezés</a></li>
+                                        <li class="nav-item"><a href="/register" class="nav-link">Regisztráció</a></li>
+                                        <% } else { %>
+                                            <!-- 🔹 Felhasználónév megjelenítése -->
+                                            <li class="nav-item">
+                                                <span class="nav-link">👋 Üdv, <strong>
+                                                        <%= user.username %>
+                                                    </strong></span>
+                                            </li>
+
+                                            <li class="nav-item">
+                                                <form action="/logout" method="post" style="display:inline;">
+                                                    <button class="nav-link btn btn-link p-0"
+                                                        style="color:inherit;">Kijelentkezés</button>
+                                                </form>
+                                            </li>
+                                            <% } %>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- END nav -->
+</body>
