@@ -1,49 +1,60 @@
 const express = require('express');
 const router = express.Router();
-const pool = require('../db/pool'); // ← importáljuk az adatbázist
+const pool = require('../db/pool'); // adatbázis kapcsolat
 
-// Főoldal
+// --- FŐOLDAL ---
 router.get('/', async (req, res) => {
   try {
     const [rows] = await pool.query('SELECT * FROM pizza');
-    res.render('pages/index', { pizzas: rows });
+    res.render('pages/index', { pizzas: rows, user: req.session.user || null });
   } catch (err) {
     console.error('❌ Adatbázis hiba:', err);
     res.status(500).send('Adatbázis kapcsolat hiba');
   }
 });
 
-module.exports = router;
+// --- MENÜ (3 tábla adatai) ---
+router.get('/menu', async (req, res) => {
+  try {
+    const [pizzak] = await pool.query('SELECT * FROM pizza');
+    const [kategoriak] = await pool.query('SELECT * FROM kategoria');
+    const [rendelesek] = await pool.query('SELECT * FROM rendeles');
 
-// Menü oldal
-router.get('/menu', (req, res) => {
-  res.render('pages/menu');
+    res.render('pages/menu', {
+      user: req.session.user || null,
+      pizzak,
+      kategoriak,
+      rendelesek
+    });
+  } catch (err) {
+    console.error('❌ Menü lekérdezési hiba:', err);
+    res.status(500).send('Szerver hiba a menü oldal betöltésekor.');
+  }
 });
 
-// Kapcsolat oldal
+// --- KAPCSOLAT ---
 router.get('/contact', (req, res) => {
-  res.render('pages/contact');
+  res.render('pages/contact', { user: req.session.user || null });
 });
 
-// Rólunk oldal
+// --- RÓLUNK ---
 router.get('/about', (req, res) => {
-  res.render('pages/about');
+  res.render('pages/about', { user: req.session.user || null });
 });
 
-// Szolgáltatások
+// --- SZOLGÁLTATÁSOK ---
 router.get('/services', (req, res) => {
-  res.render('pages/services');
+  res.render('pages/services', { user: req.session.user || null });
 });
 
-// Blog
-router.get('/blog', (req, res) => {
-  res.render('pages/blog');
+// --- Üzenetek ---
+router.get('/messages', (req, res) => {
+  res.render('pages/messages', { user: req.session.user || null });
 });
 
-// Blog cikk
+// --- BLOG CIKK ---
 router.get('/blog-single', (req, res) => {
-  res.render('pages/blog-single');
+  res.render('pages/blog-single', { user: req.session.user || null });
 });
 
 module.exports = router;
-

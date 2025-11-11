@@ -1,5 +1,5 @@
 const express = require("express");
-const mysql = require("mysql2/promise"); // FIGYELEM: promise verzió kell a pool-hoz
+const mysql = require("mysql2/promise");
 const session = require("express-session");
 const path = require("path");
 
@@ -21,8 +21,9 @@ app.use(session({
 // --- Saját pool modul ---
 const pool = require("./db/pool");
 
-// --- Middleware: user info navbarhoz ---
+// --- Middleware: globális változók minden EJS-hez ---
 app.use((req, res, next) => {
+    res.locals.title = "NetPizza"; // alapértelmezett title
     res.locals.user = req.session.user || null;
     next();
 });
@@ -35,6 +36,23 @@ app.use("/", authRoutes);
 app.get("/", (req, res) => {
     res.render("index", { user: req.session.user || null });
 });
+
+// --- Üzenetek oldal ---
+app.get("/messages", (req, res) => {
+    if (!req.session.user) {
+        return res.redirect("/login");
+    }
+    res.render("pages/messages", { user: req.session.user });
+});
+
+// --- Admin oldal ---
+app.get("/admin", (req, res) => {
+    if (!req.session.user || req.session.user.role !== "admin") {
+        return res.status(403).render("error", { message: "⛔ Nincs jogosultságod az admin felülethez!" });
+    }
+    res.render("admin/index", { user: req.session.user });
+});
+
 
 // --- Szerver indítása ---
 app.listen(3000, () => {

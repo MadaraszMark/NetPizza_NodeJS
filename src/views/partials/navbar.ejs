@@ -16,7 +16,7 @@
                     <li class="nav-item"><a href="/contact" class="nav-link">Kapcsolat</a></li>
 
                     <% if (user && (user.role==='user' || user.role==='admin' )) { %>
-                        <li class="nav-item"><a href="/uzenetek" class="nav-link">Üzenetek</a></li>
+                        <li class="nav-item"><a href="/messages" class="nav-link">Üzenetek</a></li>
                         <% } %>
 
                             <% if (user && user.role==='admin' ) { %>
@@ -34,12 +34,15 @@
                                                     </strong></span>
                                             </li>
 
-                                            <li class="nav-item">
+                                            <li class="nav-item d-flex align-items-center ml-2">
                                                 <form action="/logout" method="post" style="display:inline;">
-                                                    <button class="nav-link btn btn-link p-0"
-                                                        style="color:inherit;">Kijelentkezés</button>
+                                                    <button class="btn btn-outline-light py-1 px-3 logout-btn"
+                                                        type="submit">
+                                                        <i class="icon-log-out mr-1"></i> Kijelentkezés
+                                                    </button>
                                                 </form>
                                             </li>
+
                                             <% } %>
                 </ul>
             </div>

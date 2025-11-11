@@ -12865,31 +12865,110 @@ textarea.form-control {
   }
 }
 
-/* --- Navbar logout button szépítése --- */
-.logout-form {
-  display: inline;
-  margin: 0;
-  padding: 0;
-}
-
 .logout-btn {
-  background: none;
-  border: none;
-  color: #fff;
+  border-radius: 25px;
   font-weight: 500;
-  cursor: pointer;
-  padding: 8px 15px;
-  text-transform: uppercase;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .logout-btn:hover {
-  color: #ffb400;
-  /* pizza narancs */
-  text-decoration: none;
+  background-color: #ff4d00;
+  border-color: #ff4d00;
+  color: #fff;
 }
 
-.logout-btn:focus {
-  outline: none;
-  box-shadow: none;
+/* === 🍕 Pizzakártyák (átlátszó alsó overlay) === */
+
+.container-wrap {
+  padding: 40px 0;
+}
+
+.services-wrap {
+  position: relative;
+  background: #1a1a1a;
+  border-radius: 15px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+  flex-direction: column;
+}
+
+.services-wrap:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 25px rgba(255, 255, 255, 0.15);
+}
+
+/* --- KÉP --- */
+.services-wrap .img {
+  width: 100%;
+  height: 260px;
+  background-size: cover;
+  background-position: center;
+  flex-shrink: 0;
+  transition: transform 0.4s ease, filter 0.4s ease;
+  filter: brightness(0.9);
+}
+
+.services-wrap:hover .img {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+/* --- SZÖVEG: overlay a kép alján --- */
+.services-wrap .text {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 16px 12px;
+  text-align: center;
+  color: #fff;
+  transition: background 0.3s ease;
+}
+
+.services-wrap:hover .text {
+  background: rgba(0, 0, 0, 0.85);
+}
+
+.services-wrap h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ffd166;
+  margin-bottom: 6px;
+}
+
+.services-wrap p {
+  color: #ddd;
+  font-size: 0.9rem;
+  margin: 4px 0;
+}
+
+.services-wrap .price {
+  font-size: 1.1rem;
+  color: #06d6a0;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+/* --- GOMB --- */
+.services-wrap .btn {
+  border: 1.5px solid #ffd166;
+  color: #ffd166;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.services-wrap .btn:hover {
+  background-color: #ffd166;
+  color: #000;
+}
+
+/* --- Kártyák elrendezése --- */
+.row.no-gutters.d-flex {
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
 }

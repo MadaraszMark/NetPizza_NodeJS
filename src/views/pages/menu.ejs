@@ -61,81 +61,39 @@
 		</div>
 		<div class="container-wrap">
 			<div class="row no-gutters d-flex">
-				<div class="col-lg-4 d-flex ftco-animate">
-					<div class="services-wrap d-flex">
-						<a href="#" class="img" style="background-image: url(images/pizza-1.jpg);"></a>
-						<div class="text p-4">
-							<h3>Olasz pizza</h3>
-							<p>Klasszikus ízek, paradicsomszósz és mozzarella – az eredeti olasz kedvenc.
-							</p>
-							<p class="price"><span>2990 Ft</span> <a href="#"
-									class="ml-2 btn btn-white btn-outline-white">Rendelés</a></p>
+				<% if (pizzak && pizzak.length> 0) { %>
+					<% pizzak.forEach(pizza=> { %>
+						<div class="col-lg-4 d-flex ftco-animate">
+							<div class="services-wrap d-flex flex-column">
+								<a href="#" class="img" style="background-image: url('/images/<%= pizza.kep %>');"></a>
+								<div class="text p-4 text-center">
+									<h3>
+										<%= pizza.nev %>
+									</h3>
+									<p>Kategória: <%= pizza.kategorianev %>
+									</p>
+									<p>
+										Ár:
+										<% const kategoria=kategoriak.find(k=> k.nev === pizza.kategorianev);
+											if (kategoria) {
+											%>
+											<%= kategoria.ar %> Ft
+												<% } %>
+									</p>
+									<a href="#" class="ml-2 btn btn-white btn-outline-white">Rendelés</a>
+								</div>
+							</div>
 						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 d-flex ftco-animate">
-					<div class="services-wrap d-flex">
-						<a href="#" class="img" style="background-image: url(images/pizza-2.jpg);"></a>
-						<div class="text p-4">
-							<h3>Görög pizza</h3>
-							<p>Friss zöldségek, feta sajt és olívaolaj – a mediterrán ízek kedvelőinek.
-							</p>
-							<p class="price"><span>2990 Ft</span> <a href="#"
-									class="ml-2 btn btn-white btn-outline-white">Rendelés</a></p>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 d-flex ftco-animate">
-					<div class="services-wrap d-flex">
-						<a href="#" class="img" style="background-image: url(images/pizza-3.jpg);"></a>
-						<div class="text p-4">
-							<h3>Kaukázusi pizza</h3>
-							<p>Fűszeres hús, ropogós tészta és egy csipet keleti ízvilág.
-							</p>
-							<p class="price"><span>3990 Ft</span> <a href="#"
-									class="ml-2 btn btn-white btn-outline-white">Rendelés</a></p>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-lg-4 d-flex ftco-animate">
-					<div class="services-wrap d-flex">
-						<a href="#" class="img order-lg-last" style="background-image: url(images/pizza-4.jpg);"></a>
-						<div class="text p-4">
-							<h3>Amerikai pizza</h3>
-							<p>Vastag tészta, olvadt sajt és gazdag feltét – igazi amerikai klasszikus.
-							</p>
-							<p class="price"><span>2990 Ft</span> <a href="#"
-									class="ml-2 btn btn-white btn-outline-white">Rendelés</a></p>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 d-flex ftco-animate">
-					<div class="services-wrap d-flex">
-						<a href="#" class="img order-lg-last" style="background-image: url(images/pizza-5.jpg);"></a>
-						<div class="text p-4">
-							<h3>Paradicsomos pite</h3>
-							<p>Friss paradicsommal, bazsalikommal és könnyű sajtréteggel – egyszerűen mennyei.
-							</p>
-							<p class="price"><span>3990 Ft</span> <a href="#"
-									class="ml-2 btn btn-white btn-outline-white">Rendelés</a></p>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 d-flex ftco-animate">
-					<div class="services-wrap d-flex">
-						<a href="#" class="img order-lg-last" style="background-image: url(images/pizza-6.jpg);"></a>
-						<div class="text p-4">
-							<h3>Margherita</h3>
-							<p>A pizzák királynője: paradicsomszósz, mozzarella és friss bazsalikom.
-							</p>
-							<p class="price"><span>2490 Ft</span> <a href="#"
-									class="ml-2 btn btn-white btn-outline-white">Rendelés</a></p>
-						</div>
-					</div>
-				</div>
+						<% }) %>
+							<% } else { %>
+								<div class="col-12 text-center">
+									<p class="lead text-muted">Jelenleg nincsenek pizzák az adatbázisban 🍕</p>
+								</div>
+								<% } %>
 			</div>
 		</div>
+
+
 
 		<div class="container">
 			<div class="row justify-content-center mb-5 pb-3 mt-5 pt-5">
@@ -368,9 +326,6 @@
 	<script src="/js/bootstrap-datepicker.js"></script>
 	<script src="/js/jquery.timepicker.min.js"></script>
 	<script src="/js/scrollax.min.js"></script>
-	<script
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-	<script src="/js/google-map.js"></script>
 	<script src="/js/main.js"></script>
 
 	</body>
