@@ -12972,3 +12972,74 @@ textarea.form-control {
   gap: 25px;
   flex-wrap: wrap;
 }
+
+/* === ÜZENETEK TÁBLA – FIX, NEM CSÚSZIK SZÉT === */
+.messages-table {
+  width: 100%;
+  table-layout: fixed;
+  /* <-- ez fixálja a szélességet és a sor-magasságot */
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+/* Cellák egységes magassággal */
+.messages-table th,
+.messages-table td {
+  vertical-align: top;
+  /* szöveg felülről indul */
+  text-align: left;
+  padding: 12px 16px;
+  word-wrap: break-word;
+  /* hosszú sorok nem csúsztatnak szét */
+  word-break: break-word;
+}
+
+/* Fejléc */
+.messages-table thead th {
+  background: rgba(255, 255, 255, 0.05);
+  font-weight: 600;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Külön oszlopszélességek */
+.messages-table th:nth-child(1),
+.messages-table td:nth-child(1) {
+  width: 16%;
+}
+
+.messages-table th:nth-child(2),
+.messages-table td:nth-child(2) {
+  width: 30%;
+}
+
+.messages-table th:nth-child(3),
+.messages-table td:nth-child(3) {
+  width: 13%;
+}
+
+.messages-table th:nth-child(4),
+.messages-table td:nth-child(4) {
+  width: 35%;
+}
+
+.messages-table th:nth-child(5),
+.messages-table td:nth-child(5) {
+  width: 20%;
+  white-space: nowrap;
+  /* dátum egy sorban marad */
+}
+
+/* Tábla árnyék + vizuális javítás */
+.messages-table tr {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.messages-table tr:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* Mobil nézet */
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}

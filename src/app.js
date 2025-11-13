@@ -34,15 +34,6 @@ app.use((req, res, next) => {
     next();
 });
 
-// --- Üzenetek oldal (bejelentkezés szükséges) ---
-app.get('/messages', (req, res) => {
-    if (!req.session.user) {
-        return res.redirect('/login');
-    }
-
-    res.render('pages/messages', { user: req.session.user });
-});
-
 // útvonalak
 app.use('/', indexRouter);
 app.use('/', authRouter);      // /login, /register, /logout

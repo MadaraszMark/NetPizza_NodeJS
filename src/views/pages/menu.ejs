@@ -93,6 +93,36 @@
 			</div>
 		</div>
 
+		<div class="container mt-5 pt-5">
+			<h2 class="text-center mb-4">🧾 Legutóbbi rendelések</h2>
+
+			<div class="row">
+				<% if (rendelesek && rendelesek.length> 0) { %>
+					<% rendelesek.forEach(r=> { %>
+						<div class="col-md-4 mb-3">
+							<div class="p-3 bg-dark text-white rounded shadow">
+								<h5>
+									<%= r.pizzanev %>
+								</h5>
+								<p>Mennyiség: <strong>
+										<%= r.darab %> db
+									</strong></p>
+								<p>Felvétel időpontja:
+									<strong>
+										<%= new Date(r.felvetel).toLocaleString() %>
+									</strong>
+								</p>
+							</div>
+						</div>
+						<% }) %>
+							<% } else { %>
+								<p class="text-muted text-center w-100">
+									Jelenleg nincs rendelési adat a rendszerben.
+								</p>
+								<% } %>
+			</div>
+		</div>
+
 
 
 		<div class="container">

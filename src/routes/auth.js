@@ -40,6 +40,7 @@ router.post('/register', async (req, res) => {
         req.session.user = {
             id: result.insertId,
             username,
+            email,
             role: 'user',
         };
 
@@ -90,6 +91,7 @@ router.post('/login', async (req, res) => {
         req.session.user = {
             id: user.id,
             username: user.username,
+            email: user.email,
             role: user.role
         };
 

@@ -48,58 +48,74 @@
   </section>
 
   <section class="ftco-section contact-section">
-    <div class="container mt-5">
-      <div class="row block-9">
-        <div class="col-md-4 contact-info ftco-animate">
-          <div class="row">
-            <div class="col-md-12 mb-4">
-              <h2 class="h4">Contact Information</h2>
-            </div>
-            <div class="col-md-12 mb-3">
-              <p><span>Address:</span> 198 West 21th Street, Suite 721 New York NY 10016</p>
-            </div>
-            <div class="col-md-12 mb-3">
-              <p><span>Phone:</span> <a href="tel://1234567920">+ 1235 2355 98</a></p>
-            </div>
-            <div class="col-md-12 mb-3">
-              <p><span>Email:</span> <a href="mailto:info@yoursite.com">info@yoursite.com</a></p>
-            </div>
-            <div class="col-md-12 mb-3">
-              <p><span>Website:</span> <a href="#">yoursite.com</a></p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-1"></div>
-        <div class="col-md-6 ftco-animate">
-          <form action="#" class="contact-form">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Your Name">
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Your Email">
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="Subject">
-            </div>
-            <div class="form-group">
-              <textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
-            </div>
-            <div class="form-group">
-              <input type="submit" value="Send Message" class="btn btn-primary py-3 px-5">
-            </div>
-          </form>
+    <div class="container">
+      <div class="row justify-content-center mb-5 pb-3">
+        <div class="col-md-7 text-center heading-section ftco-animate">
+          <h2 class="mb-4">Lépj kapcsolatba velünk</h2>
+          <p>Küldj üzenetet, és 24 órán belül válaszolunk!</p>
         </div>
       </div>
+
+      <!-- 🔔 Visszajelzések -->
+      <% if (typeof success !=="undefined" && success) { %>
+        <div class="alert alert-success text-center">
+          <%= success %>
+        </div>
+        <% } %>
+
+          <% if (typeof error !=="undefined" && error) { %>
+            <div class="alert alert-danger text-center">
+              <%= error %>
+            </div>
+            <% } %>
+
+              <% if (typeof errors !=="undefined" && errors && errors.length> 0) { %>
+                <div class="alert alert-danger">
+                  <ul class="mb-0">
+                    <% errors.forEach(e=> { %>
+                      <li>
+                        <%= e %>
+                      </li>
+                      <% }) %>
+                  </ul>
+                </div>
+                <% } %>
+                  <!-- 🔔 END -->
+
+                  <div class="row block-9 justify-content-center">
+                    <div class="col-md-6">
+
+                      <form action="/contact" method="POST">
+                        <div class="form-group">
+                          <input name="nev" type="text" class="form-control" placeholder="Neved"
+                            value="<%= typeof nev !== 'undefined' ? nev : '' %>" required>
+                        </div>
+
+                        <div class="form-group">
+                          <input name="email" type="email" class="form-control" placeholder="Email címed"
+                            value="<%= typeof email !== 'undefined' ? email : '' %>" required>
+                        </div>
+
+                        <div class="form-group">
+                          <input name="targy" type="text" class="form-control" placeholder="Tárgy"
+                            value="<%= typeof targy !== 'undefined' ? targy : '' %>" required>
+                        </div>
+
+                        <div class="form-group">
+                          <textarea name="uzenet" cols="30" rows="7" class="form-control" placeholder="Üzeneted"
+                            required><%= typeof uzenet !== 'undefined' ? uzenet : '' %></textarea>
+                        </div>
+
+                        <div class="form-group">
+                          <input type="submit" value="Üzenet küldése" class="btn btn-primary py-3 px-5">
+                        </div>
+                      </form>
+
+                    </div>
+                  </div>
     </div>
   </section>
 
-  <div id="map"></div>
 
 
   <footer class="ftco-footer ftco-section img">
