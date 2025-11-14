@@ -2,20 +2,263 @@
 <html lang="hu">
 
 <head>
-    <title>NetPizza - Admin</title>
+    <title>NetPizza - Admin pizzák</title>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nothing+You+Could+Do" rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="/css/animate.css">
+
+    <link rel="stylesheet" href="/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/css/magnific-popup.css">
+
+    <link rel="stylesheet" href="/css/aos.css">
+    <link rel="stylesheet" href="/css/ionicons.min.css">
+
+    <link rel="stylesheet" href="/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/css/jquery.timepicker.css">
+
+    <link rel="stylesheet" href="/css/flaticon.css">
+    <link rel="stylesheet" href="/css/icomoon.css">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
+
     <%- include('../partials/navbar') %>
 
-        <section class="ftco-section text-center">
-            <div class="container">
-                <h2 class="mb-4">👑 Admin felület</h2>
-                <p>Üdvözöllek, <%= user.username %>! Innen kezelheted a rendeléseket és felhasználókat.</p>
+        <!-- SLIDER -->
+        <section class="home-slider owl-carousel img" style="background-image: url(/images/bg_3.jpg);">
+            <div class="slider-item" style="background-image: url(/images/bg_1.jpg);">
+                <div class="overlay"></div>
+                <div class="container">
+                    <div class="row slider-text justify-content-center align-items-center">
+                        <div class="col-md-7 text-center ftco-animate">
+                            <h1 class="mb-3 mt-5 bread">Admin – Pizza Kezelő</h1>
+                            <p class="breadcrumbs"><span><a href="/">Kezdőlap</a></span> <span>Pizzák kezelése</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
+
+        <!-- PIZZA LISTA -->
+        <section class="ftco-section">
+            <div class="container">
+
+                <div class="text-right mb-4">
+                    <button class="btn btn-success btn-lg" data-toggle="modal" data-target="#addPizzaModal">
+                        ➕ Új pizza hozzáadása
+                    </button>
+                </div>
+
+                <div class="table-responsive ftco-animate">
+                    <table class="table table-dark table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Név</th>
+                                <th>Kép</th>
+                                <th>Kategória</th>
+                                <th>Vega?</th>
+                                <th>Műveletek</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% pizzas.forEach(p=> { %>
+                                <tr>
+                                    <td>
+                                        <%= p.nev %>
+                                    </td>
+
+                                    <td><img src="/images/<%= p.kep %>" width="60"></td>
+
+                                    <td>
+                                        <%= p.kategorianev %>
+                                    </td>
+
+                                    <td>
+                                        <%= p.vegetarianus ? "Igen" : "Nem" %>
+                                    </td>
+
+                                    <td>
+                                        <!-- Szerkesztés -->
+                                        <button class="btn btn-warning btn-sm editBtn" data-toggle="modal"
+                                            data-target="#editPizzaModal" data-nev="<%= p.nev %>"
+                                            data-kep="<%= p.kep %>" data-kat="<%= p.kategorianev %>"
+                                            data-veg="<%= p.vegetarianus %>">
+                                            ✏️
+                                        </button>
+
+                                        <!-- Törlés -->
+                                        <button class="btn btn-danger btn-sm deleteBtn" data-toggle="modal"
+                                            data-target="#deletePizzaModal" data-nev="<%= p.nev %>">
+                                            🗑️
+                                        </button>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================== ÚJ PIZZA MODAL ================== -->
+        <div class="modal fade" id="addPizzaModal">
+            <div class="modal-dialog">
+                <form method="POST" action="/admin/pizzak/uj" class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title">Új pizza hozzáadása</h5>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Név</label>
+                            <input type="text" name="nev" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Kép fájl neve</label>
+                            <input type="text" name="kep" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Kategória</label>
+                            <input type="text" name="kategorianev" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Vegetáriánus?</label>
+                            <select name="vegetarianus" class="form-control">
+                                <option value="0">Nem</option>
+                                <option value="1">Igen</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-primary">Mentés</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+        <!-- ================== SZERKESZTÉS MODAL ================== -->
+        <div class="modal fade" id="editPizzaModal">
+            <div class="modal-dialog">
+                <form method="POST" action="/admin/pizzak/szerkeszt" class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title">Pizza szerkesztése</h5>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <!-- EREDETI NÉV (PRIMARY KEY) -->
+                        <input type="hidden" name="originalNev" id="edit-original">
+
+                        <div class="form-group">
+                            <label>Név</label>
+                            <input type="text" name="nev" id="edit-nev" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Kép neve</label>
+                            <input type="text" name="kep" id="edit-kep" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Kategória</label>
+                            <input type="text" name="kategorianev" id="edit-kat" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Vegetáriánus?</label>
+                            <select name="vegetarianus" id="edit-veg" class="form-control">
+                                <option value="0">Nem</option>
+                                <option value="1">Igen</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-primary">Mentés</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+        <!-- ================== TÖRLÉS MODAL ================== -->
+        <div class="modal fade" id="deletePizzaModal">
+            <div class="modal-dialog">
+                <form method="POST" action="/admin/pizzak/torol" class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title">Biztos törlöd?</h5>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <div class="modal-body">
+                        <p id="delete-text"></p>
+
+                        <!-- NÉV ALAPÚ TÖRLÉS -->
+                        <input type="hidden" name="nev" id="delete-nev">
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-danger">Törlés</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+        <script src="/js/jquery.min.js"></script>
+        <script src="/js/jquery-migrate-3.0.1.min.js"></script>
+        <script src="/js/popper.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/jquery.easing.1.3.js"></script>
+        <script src="/js/jquery.waypoints.min.js"></script>
+        <script src="/js/jquery.stellar.min.js"></script>
+        <script src="/js/owl.carousel.min.js"></script>
+        <script src="/js/jquery.magnific-popup.min.js"></script>
+        <script src="/js/aos.js"></script>
+        <script src="/js/jquery.animateNumber.min.js"></script>
+        <script src="/js/bootstrap-datepicker.js"></script>
+        <script src="/js/jquery.timepicker.min.js"></script>
+        <script src="/js/scrollax.min.js"></script>
+        <script src="/js/main.js"></script>
+
+        <!-- MODAL SCRIPT -->
+        <script>
+            // SZERKESZTÉS
+            $(".editBtn").click(function () {
+                $("#edit-original").val($(this).data("nev"));
+                $("#edit-nev").val($(this).data("nev"));
+                $("#edit-kep").val($(this).data("kep"));
+                $("#edit-kat").val($(this).data("kat"));
+                $("#edit-veg").val($(this).data("veg"));
+            });
+
+            // TÖRLÉS
+            $(".deleteBtn").click(function () {
+                $("#delete-nev").val($(this).data("nev"));
+                $("#delete-text").text("Biztosan törlöd ezt a pizzát: " + $(this).data("nev") + " ?");
+            });
+        </script>
+
 </body>
 
 </html>

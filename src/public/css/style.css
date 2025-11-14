@@ -13043,3 +13043,15 @@ textarea.form-control {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 }
+
+.modal-content {
+  background-color: #222 !important;
+  color: #fff !important;
+}
+
+.modal-content input,
+.modal-content select,
+.modal-content textarea {
+  color: #000 !important;
+  background-color: #fff !important;
+}
